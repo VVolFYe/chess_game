@@ -1,5 +1,5 @@
 REPO_NAME = chess_game
-COMMIT_MSG = "commited"
+COMMIT_MSG = "committed"
 
 all:
 
