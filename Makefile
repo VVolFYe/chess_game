@@ -2,6 +2,7 @@ REPO_NAME = chess_game
 COMMIT_MSG = "committed"
 
 all:
+	echo "nicio problema"
 
 update:
 	git add .
@@ -17,3 +18,5 @@ status:
 logs:
 	git log --oneline
 
+compile:
+	gcc -Wall -o p main.c -lSDL2 -lSDL2_image -lSDL2_ttf
