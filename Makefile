@@ -1,7 +1,7 @@
 REPO_NAME = chess_game
 COMMIT_MSG = "comitted"
 
-all: update
+all:
 
 update:
 	git add .
