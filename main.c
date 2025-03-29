@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_test_images.h>
-#include <SDL2/SDL_ttf.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -13,7 +12,12 @@
 typedef struct{
     SDL_Rect rect;      // forma
     const char *label;  // display-text
-}
+}Button;
+
+SDL_Window *window = NULL;
+SDL_Renderer *renderer = NULL;
+
+
 
 int main(void)
 {

@@ -1,5 +1,5 @@
 Proiect - Chess Game
 
 Using: 
-  -SDL2 (+images, + ttf)
+  -SDL2 (+images)
   
