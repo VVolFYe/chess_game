@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    printf("Test git 9:09.\n");
+    printf("Test git 9:12.\n");
 
 
     return 0;
