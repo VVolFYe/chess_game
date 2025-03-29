@@ -3,6 +3,7 @@
 #include <SDL2/SDL_test_images.h>
 #include <stdlib.h>
 #include <time.h>
+#include "functions.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
@@ -18,7 +19,10 @@ SDL_Renderer *renderer = NULL;
 int main(void)
 {
     printf("Start.\n");
-
+    if (!init()){
+        fprintf(stderr,"Problema la initializare.\n");
+        exit(-1);
+    }
 
 
 

@@ -1,5 +1,5 @@
-#ifndef FUCTIONS.H
-#define FUNCTIONS.H
+#ifndef FUCTIONS_H
+#define FUNCTIONS_H
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
