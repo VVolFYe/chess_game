@@ -4,7 +4,7 @@ COMMIT_MSG = "comitted"
 all:
 
 update:
-	git add .
+	git add main.c Makefile
 	git commit -m "${COMMIT_MSG}"
 	git push origin main
 
