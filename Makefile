@@ -9,7 +9,7 @@ update:
 	git commit -m "${COMMIT_MSG}"
 	git push origin main
 
-pull:
+pull:	
 	git pull origin main
 
 status:
