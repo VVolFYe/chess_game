@@ -9,14 +9,10 @@
 
 // PAGINA DE MENIU
 
-typedef struct{
-    SDL_Rect rect;      // forma
-    const char *label;  // display-text
-}Button;
 
+//le declaram aici globale si le folosim cu extern in functions.c
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
-
 
 
 int main(void)
