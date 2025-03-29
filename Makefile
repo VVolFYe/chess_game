@@ -17,5 +17,3 @@ status:
 logs:
 	git log --oneline
 
-compile:
-	gcc -Wall -o p main.c -lSDL2 -lSDL2_image -lSDL2_ttf
