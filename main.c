@@ -9,7 +9,7 @@
 
 int main(void)
 {
-    printf("tralalero tralala.\n");
+    printf("lalalala 10 32.\n");
 
 
 
