@@ -86,7 +86,7 @@ Button back_classic = {{0, WINDOW_HEIGHT-50, 200, 50}, "Back"}; //buton back
         // SDL_GetMouseState(&mouseX, &mouseY);
         // printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
 
-        renderText(back_classic.label, 50, 575, classic_renderer, classic_font);
+        renderText(back_classic.label, back_classic.rect.x + 50, WINDOW_HEIGHT + 15, classic_renderer, classic_font);
 
         SDL_RenderPresent(classic_renderer); // Update la screen.
     }
