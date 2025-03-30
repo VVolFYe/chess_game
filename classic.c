@@ -63,11 +63,11 @@ void classic_game()
         return;
     }
 
-Button back_classic = {{0, WINDOW_HEIGHT - 40, 100, 40}, "Back"}; //buton back
-
-
+    Button back_classic = {{0, WINDOW_HEIGHT - 40, 100, 40}, "Back"}; //buton back
     SDL_Event e;
     bool quit = false;
+
+    SDL_Rect chessboard_dest_rect = {50, 50, 480, 480};
 
     while (!quit){
         while(SDL_PollEvent(&e) != 0){
@@ -90,17 +90,15 @@ Button back_classic = {{0, WINDOW_HEIGHT - 40, 100, 40}, "Back"}; //buton back
         SDL_SetRenderDrawColor(classic_renderer, 0, 0, 0, 255);  // black background;
         SDL_RenderClear(classic_renderer); 
 
+        SDL_Rect chessboard_source_rect = {0, 0, 480, 480};
+        SDL_RenderCopy(classic_renderer, chessboard, &chessboard_source_rect, &chessboard_dest_rect);
+
         SDL_SetRenderDrawColor(classic_renderer, 255, 255, 255, 255); 
         SDL_RenderFillRect(classic_renderer, &back_classic.rect); // Draw the button.
 
-        int x = back_classic.rect.x;
-        printf("x = %d\n", x);
-        int y = back_classic.rect.y;   
-        printf("y = %d\n", y);
-
-        int mouseX, mouseY;
-        SDL_GetMouseState(&mouseX, &mouseY);
-        printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
+        // int mouseX, mouseY;          //pentru a testa pozitia mouse-ului decomenteaza :/
+        // SDL_GetMouseState(&mouseX, &mouseY);
+        // printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
 
         renderText(back_classic.label, back_classic.rect.x + 20, WINDOW_HEIGHT - 35, classic_renderer, classic_font);
 
