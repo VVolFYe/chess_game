@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_test_images.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 #include <stdlib.h>
 #include <time.h>
 #include "functions.h"
@@ -17,11 +18,28 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 TTF_Font *font = NULL;
 
+SDL_Texture *background_texture = NULL;
+
 int main(void)
 {
     printf("Start.\n");
     if (!init()){
         fprintf(stderr,"Problema la initializare.\n");
+        exit(-1);
+    }
+
+    SDL_Surface *background_surface = IMG_Load("main_background.jpg");  //cream surface
+    if (!background_surface){
+        fprintf(stderr,"Eroare imagine background main.\n");
+        close_program();
+        exit(-1);
+    }
+
+    background_texture = SDL_CreateTextureFromSurface(renderer, background_surface);   //din surface => textura
+    SDL_FreeSurface(background_surface);
+    if (!background_texture){
+        fprintf(stderr,"Eroare textura main.\n");
+        close_program();
         exit(-1);
     }
 
@@ -54,8 +72,7 @@ int main(void)
         }
 
         //background negru
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, background_texture, NULL, NULL);
 
         // alb pentru butoane.
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -71,7 +88,8 @@ int main(void)
         SDL_RenderPresent(renderer); //update;
     }
 
-    
+    SDL_DestroyTexture(background_texture); //eliberam textura de la background;
     close_program();
+    
     return 0;
 }
