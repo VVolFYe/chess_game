@@ -1,5 +1,5 @@
 REPO_NAME = chess_game
-COMMIT_MSG = "committed"
+COMMIT_MSG = "I am committed :p"
 
 all:
 	echo "nicio problema"
