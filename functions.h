@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdbool.h>
+#include "classic.h"
 
 typedef struct{
     SDL_Rect rect;      // forma

@@ -6,12 +6,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include "functions.h"
+#include "classic.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
 // PAGINA DE MENIU
-
 
 //le declaram aici globale si le folosim cu extern in functions.c
 SDL_Window *window = NULL;
@@ -60,7 +60,8 @@ int main(void)
                 SDL_GetMouseState(&mouseX, &mouseY); //vedem coordonatele mouse-ului cand este apasat
 
                 if (check_button(classic_button, mouseX, mouseY)) {
-                    printf("Classic Chess selected!\n");
+                    printf("sah-clasic-selectat.\n");
+                    classic_game();
                 } 
                 else if (check_button(atomic_button, mouseX, mouseY)) {
                     printf("Atomic Chess selected!\n");
