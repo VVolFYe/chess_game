@@ -68,6 +68,8 @@ void classic_game()
     bool quit = false;
 
     SDL_Rect chessboard_dest_rect = {50, 50, 480, 480};
+    // int chessboard_x = chessboard_dest_rect.x; // le salvam aici ca variabile ca sa le folosim in functii
+    // int chessboard_y = chessboard_dest_rect.y; // pentru a putea schimba mai apoi tabla sau ceva idk (nu ma risc)
 
     while (!quit){
         while(SDL_PollEvent(&e) != 0){
@@ -87,7 +89,7 @@ void classic_game()
             }
         }
 
-        SDL_SetRenderDrawColor(classic_renderer, 0, 0, 0, 255);  // black background;
+        SDL_SetRenderDrawColor(classic_renderer, 32, 32, 32, 255);  // black background;
         SDL_RenderClear(classic_renderer); 
 
         SDL_Rect chessboard_source_rect = {0, 0, 480, 480};
