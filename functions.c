@@ -28,7 +28,7 @@ bool init(){
         return false;
     }
 
-    font = TTF_OpenFont("dINLOCUIESTE_CU_FONTUL.ttf",24);
+    font = TTF_OpenFont("arial.ttf",24);
     if (font == NULL){
         fprintf(stderr,"Eroare OpenFont.\n");
         return false;
