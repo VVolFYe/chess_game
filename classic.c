@@ -55,6 +55,20 @@ void close_classic() {
     SDL_DestroyWindow(classic_window);
 }
 
+//BAGA MAINE IN BIBLIOTECA FUNCTIILE TE ROG EU PE EU
+// SDL_Texture *load_image(const char *path, SDL_Renderer *renderer){
+//     SDL
+
+// }
+
+void display_chess_piece(SDL_Renderer *renderer, SDL_Texture *piece_texture, int x, int y, int width, int height) {
+    // Define the destination rectangle where the piece will be placed on the screen
+    SDL_Rect pieceDestRect = {x, y, width, height};  // (x, y, width, height)
+
+    // Render the chess piece texture to the specified position
+    SDL_RenderCopy(renderer, piece_texture, NULL, &pieceDestRect);
+}
+
 
 void classic_game()
 {
