@@ -37,35 +37,41 @@ int main(void)
             if (e.type == SDL_QUIT) {
                 quit = true;
             } else if (e.type == SDL_MOUSEBUTTONDOWN) {
+
                 int mouseX, mouseY;
-                SDL_GetMouseState(&mouseX, &mouseY);
+                SDL_GetMouseState(&mouseX, &mouseY); //vedem coordonatele mouse-ului cand este apasat
 
                 if (check_button(classic_button, mouseX, mouseY)) {
                     printf("Classic Chess selected!\n");
-                } else if (check_button(atomic_button, mouseX, mouseY)) {
+                } 
+                else if (check_button(atomic_button, mouseX, mouseY)) {
                     printf("Atomic Chess selected!\n");
-                } else if (check_button(exit_button, mouseX, mouseY)) {
-                    quit = true;
+                }
+                else if (check_button(exit_button, mouseX, mouseY)) {
+                    quit = true; //iesim din program.
                 }
             }
         }
 
+        //background negru
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
+        // alb pentru butoane.
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(renderer, &classic_button.rect);
         SDL_RenderFillRect(renderer, &atomic_button.rect);
         SDL_RenderFillRect(renderer, &exit_button.rect);
 
+        // text cu functia din functions.h
         renderText(classic_button.label, classic_button.rect.x + 23, classic_button.rect.y + 10);
         renderText(atomic_button.label, atomic_button.rect.x + 23, atomic_button.rect.y + 10);
         renderText(exit_button.label, exit_button.rect.x + 73, exit_button.rect.y + 10);
 
-        SDL_RenderPresent(renderer);
+        SDL_RenderPresent(renderer); //update;
     }
 
+    
     close_program();
-
     return 0;
 }
