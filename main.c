@@ -27,7 +27,7 @@ int main(void)
 
     Button classic_button = {{300, 150, 200, 50}, "Classic Chess"}; //buton sah clasic
     Button atomic_button = {{300, 250, 200, 50}, "Atomic Chess"}; //buton atomic chess (mod de joc)
-    Button exit_button = {{300, 300, 200, 50}, "Exit"}; //buton exit
+    Button exit_button = {{300, 350, 200, 50}, "Exit"}; //buton exit
 
     SDL_Event e;
     bool quit = false;
@@ -58,9 +58,9 @@ int main(void)
         SDL_RenderFillRect(renderer, &atomic_button.rect);
         SDL_RenderFillRect(renderer, &exit_button.rect);
 
-        renderText(classic_button.label, classic_button.rect.x + 50, classic_button.rect.y + 10);
-        renderText(atomic_button.label, atomic_button.rect.x + 50, atomic_button.rect.y + 10);
-        renderText(exit_button.label, exit_button.rect.x + 70, exit_button.rect.y + 10);
+        renderText(classic_button.label, classic_button.rect.x + 23, classic_button.rect.y + 10);
+        renderText(atomic_button.label, atomic_button.rect.x + 23, atomic_button.rect.y + 10);
+        renderText(exit_button.label, exit_button.rect.x + 73, exit_button.rect.y + 10);
 
         SDL_RenderPresent(renderer);
     }

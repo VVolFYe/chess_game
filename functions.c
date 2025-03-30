@@ -14,6 +14,7 @@ bool init(){
 
     if (TTF_Init() == -1){
         fprintf(stderr,"Eroare TTF.\n");
+        return false;
     }
 
     window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, SDL_WINDOW_SHOWN);
@@ -48,7 +49,7 @@ void close_program(){
 }
 
 void renderText(const char *text, int x, int y){
-    SDL_Color color = {255,255,255}; //text alb (rgb);
+    SDL_Color color = {32,64,32}; //text alb (rgb);
     SDL_Surface *textSurface = TTF_RenderText_Solid(font, text, color);
     /*
     x = coordonata x
@@ -67,8 +68,8 @@ void renderText(const char *text, int x, int y){
         return;
     }
    
-
-    SDL_Rect textRect = {x,y, textSurface->w, textSurface->h}; //width si height
+   
+    SDL_Rect textRect = {x, y, textSurface->w, textSurface->h}; //width si height
     SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 
     SDL_DestroyTexture(textTexture);
