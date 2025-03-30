@@ -14,6 +14,6 @@ typedef struct{
 bool init();
 void close_program();
 void renderText(const char* text, int x, int y);
-bool checkButton(Button button, int mouse_x, int mouse_y);
+bool check_button(Button button, int mouse_x, int mouse_y);
 
 #endif

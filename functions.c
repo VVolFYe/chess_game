@@ -28,7 +28,7 @@ bool init(){
         return false;
     }
 
-    font = TTF_OpenFont("INLOCUIESTE_CU_FONTUL.ttf",24);
+    font = TTF_OpenFont("dINLOCUIESTE_CU_FONTUL.ttf",24);
     if (font == NULL){
         fprintf(stderr,"Eroare OpenFont.\n");
         return false;
@@ -73,12 +73,12 @@ void renderText(const char *text, int x, int y){
 
     SDL_DestroyTexture(textTexture);
     SDL_FreeSurface(textSurface);
-    return;
+    
 }
 
-bool checkButtonClick(Button button, int mouseX, int mouseY) {
+bool check_button(Button button, int mouseX, int mouseY) {
         return (mouseX >= button.rect.x && mouseX <= button.rect.x + button.rect.w && mouseY >= button.rect.y && mouseY <= button.rect.y + button.rect.h);
     }
 
-    
+
 
