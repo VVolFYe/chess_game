@@ -1,5 +1,5 @@
-Proiect - Chess Game
+Project - Chess Game
 
 Using: 
-  -SDL2 (+images)
+  -SDL2 (+images +ttf)
   
