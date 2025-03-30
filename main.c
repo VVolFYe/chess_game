@@ -82,9 +82,9 @@ int main(void)
         SDL_RenderFillRect(renderer, &exit_button.rect);
 
         // text cu functia din functions.h
-        renderText(classic_button.label, classic_button.rect.x + 23, classic_button.rect.y + 10);
-        renderText(atomic_button.label, atomic_button.rect.x + 23, atomic_button.rect.y + 10);
-        renderText(exit_button.label, exit_button.rect.x + 73, exit_button.rect.y + 10);
+        renderText(classic_button.label, classic_button.rect.x + 23, classic_button.rect.y + 10, renderer, font);
+        renderText(atomic_button.label, atomic_button.rect.x + 23, atomic_button.rect.y + 10, renderer, font);
+        renderText(exit_button.label, exit_button.rect.x + 73, exit_button.rect.y + 10, renderer, font);
 
         SDL_RenderPresent(renderer); //update;
     }

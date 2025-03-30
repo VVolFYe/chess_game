@@ -19,4 +19,8 @@ logs:
 	git log --oneline
 
 compile:
-	gcc -Wall -o p main.c functions.c -lSDL2 -lSDL2_image -lSDL2_ttf
+	gcc -Wall -o p main.c functions.c classic.c -lSDL2 -lSDL2_image -lSDL2_ttf
+
+run:
+	gcc -Wall -o p main.c functions.c classic.c -lSDL2 -lSDL2_image -lSDL2_ttf
+	./p

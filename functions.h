@@ -5,7 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdbool.h>
-#include "classic.h"
+//#include "classic.h"
 
 typedef struct{
     SDL_Rect rect;      // forma
@@ -14,7 +14,7 @@ typedef struct{
 
 bool init();
 void close_program();
-void renderText(const char* text, int x, int y);
+void renderText(const char* text, int x, int y, SDL_Renderer *renderer, TTF_Font *font);
 bool check_button(Button button, int mouse_x, int mouse_y);
 
 #endif

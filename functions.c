@@ -48,8 +48,8 @@ void close_program(){
     SDL_Quit();
 }
 
-void renderText(const char *text, int x, int y){
-    SDL_Color color = {32,64,32}; //text alb (rgb);
+void renderText(const char *text, int x, int y, SDL_Renderer *renderer, TTF_Font *font) {
+    SDL_Color color = {0,0,0}; //text (inchis) -> (rgb);
     SDL_Surface *textSurface = TTF_RenderText_Solid(font, text, color);
     /*
     x = coordonata x
@@ -74,7 +74,6 @@ void renderText(const char *text, int x, int y){
 
     SDL_DestroyTexture(textTexture);
     SDL_FreeSurface(textSurface);
-    
 }
 
 bool check_button(Button button, int mouseX, int mouseY) {
