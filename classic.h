@@ -9,7 +9,7 @@ bool init_classic();
 void close_classic();
 void classic_game();
 void display_chess_piece(const char*, SDL_Renderer*, int, int, int , int);
-void display_board();
+void display_board(SDL_Renderer*);
 
 
 #endif

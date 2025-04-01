@@ -6,13 +6,55 @@
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
+#define BOARD_X 50
+#define BOARD_Y 50
+#define BOARD_WIDTH 480
+#define BOARD_HEIGHT 480
+
 
 SDL_Window *classic_window = NULL;
 SDL_Renderer *classic_renderer = NULL;
 TTF_Font *classic_font = NULL;
 SDL_Texture *chessboard = NULL;
 
-bool init_classic() {
+
+/*
+    Pentru tabla de sah folosim o matrice de 8x8
+    Litere mari -> piese albe
+    Litere mici -> piese negre
+    Asta e pozitia initiala
+*/
+char board[8][8] = {
+    {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'},  
+    {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},  
+    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},  
+    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},  
+    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},  
+    {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},  
+    {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},  
+    {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}   
+};
+
+void display_board(SDL_Renderer *renderer){
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+
+            char piece = board[i][j];
+            int square_size = BOARD_HEIGHT / 8; // momentan e 60 dar in caz ca mai schimb
+            
+            int x = j * square_size + BOARD_X; 
+            int y = i * square_size + BOARD_Y;
+
+            if (piece != ' ') {
+                char path_image[100];
+                sprintf(path_image, "/home/wolfye/chess_game/pieces/%c.png", piece); // cream path-ul catre imaginea corespunzatoare pieesei selectate.
+                display_chess_piece(path_image, renderer, x, y, square_size, square_size);
+            }
+        }
+    }
+}
+
+bool init_classic(){
     classic_window = SDL_CreateWindow("Classic Chess", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
     if (!classic_window) {
         fprintf(stderr, "Failed to create Classic Chess window: %s\n", SDL_GetError());
@@ -20,20 +62,20 @@ bool init_classic() {
     }
 
     classic_renderer = SDL_CreateRenderer(classic_window, -1, SDL_RENDERER_ACCELERATED);
-    if (!classic_renderer) {
+    if (!classic_renderer){
         fprintf(stderr, "Failed to create Classic Chess renderer: %s\n", SDL_GetError());  //afisam eroarea cu geterror (sdl)
         SDL_DestroyWindow(classic_window);
         return false;
     }
 
     classic_font = TTF_OpenFont("arial.ttf", 24); // Load the font with size 24
-        if (!classic_font) {
+        if (!classic_font){
         fprintf(stderr, "Failed to load font: %s\n", TTF_GetError());  //afisam eroare cu geterror (ttf)
         return false;
     }
 
-    SDL_Surface *background_surface = IMG_Load("chessboard.jpg");  // Replace with the path to your image
-    if (!background_surface) {
+    SDL_Surface *background_surface = IMG_Load("chessboard_2.png");  // Replace with the path to your image
+    if (!background_surface){
         fprintf(stderr, "Failed to load chessboard: %s\n", SDL_GetError());
         return false;
     }
@@ -41,7 +83,7 @@ bool init_classic() {
     chessboard = SDL_CreateTextureFromSurface(classic_renderer, background_surface);
     SDL_FreeSurface(background_surface);  // Free the surface after creating the texture
 
-    if (!chessboard) {
+    if (!chessboard){
         fprintf(stderr, "Failed to create background texture: %s\n", SDL_GetError());
         return false;
     }
@@ -49,7 +91,7 @@ bool init_classic() {
     return true;
 }
 
-void close_classic() {
+void close_classic(){
     SDL_DestroyTexture(chessboard);
     SDL_DestroyRenderer(classic_renderer);
     SDL_DestroyWindow(classic_window);
@@ -123,14 +165,14 @@ void classic_game()
         
         SDL_Rect chessboard_source_rect = {0, 0, 480, 480};
         SDL_RenderCopy(classic_renderer, chessboard, &chessboard_source_rect, &chessboard_dest_rect);
-        // display_chess_piece("/home/wolfye/chess_game/pieces/black_king.png", classic_renderer, 230, 470, 60, 60);
+        display_board(classic_renderer);
 
         SDL_SetRenderDrawColor(classic_renderer, 255, 255, 255, 255); 
         SDL_RenderFillRect(classic_renderer, &back_classic.rect); // Draw the button.
 
-        int mouseX, mouseY;          //pentru a testa pozitia mouse-ului decomenteaza :/
-        SDL_GetMouseState(&mouseX, &mouseY);
-        printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
+        // int mouseX, mouseY;          //pentru a testa pozitia mouse-ului decomenteaza :/
+        // SDL_GetMouseState(&mouseX, &mouseY);
+        // printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
 
         renderText(back_classic.label, back_classic.rect.x + 20, WINDOW_HEIGHT - 35, classic_renderer, classic_font);
 
