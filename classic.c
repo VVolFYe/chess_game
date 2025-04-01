@@ -97,12 +97,6 @@ void close_classic(){
     SDL_DestroyWindow(classic_window);
 }
 
-//BAGA MAINE IN BIBLIOTECA FUNCTIILE TE ROG EU PE EU
-// SDL_Texture *load_image(const char *path, SDL_Renderer *renderer){
-//     SDL
-
-// }
-
 void display_chess_piece(const char *path, SDL_Renderer *renderer, int x, int y, int width, int height) {
     SDL_Texture *texture = NULL;
     SDL_Surface *surface = IMG_Load(path);
