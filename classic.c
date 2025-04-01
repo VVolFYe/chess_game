@@ -97,6 +97,7 @@ void close_classic(){
     SDL_DestroyWindow(classic_window);
 }
 
+
 void display_chess_piece(const char *path, SDL_Renderer *renderer, int x, int y, int width, int height) {
     SDL_Texture *texture = NULL;
     SDL_Surface *surface = IMG_Load(path);
