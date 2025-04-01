@@ -61,12 +61,26 @@ void close_classic() {
 
 // }
 
-void display_chess_piece(SDL_Renderer *renderer, SDL_Texture *piece_texture, int x, int y, int width, int height) {
-    // Define the destination rectangle where the piece will be placed on the screen
-    SDL_Rect pieceDestRect = {x, y, width, height};  // (x, y, width, height)
+void display_chess_piece(const char *path, SDL_Renderer *renderer, int x, int y, int width, int height) {
+    SDL_Texture *texture = NULL;
+    SDL_Surface *surface = IMG_Load(path);
 
-    // Render the chess piece texture to the specified position
-    SDL_RenderCopy(renderer, piece_texture, NULL, &pieceDestRect);
+    if (surface == NULL) {
+        fprintf(stderr, "Failed to load image: %s\n", IMG_GetError());
+        return;
+    }
+
+    texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);  // nu ne mai trebuie surface-ul
+
+    if (texture == NULL) {
+        fprintf(stderr, "Failed to create texture: %s\n", SDL_GetError());
+        return;
+    }
+
+    SDL_Rect display_rect = {x, y, width, height}; //parametrizam ca sa putem folosi
+    SDL_RenderCopy(renderer, texture, NULL, &display_rect); //punem imaginea
+    SDL_DestroyTexture(texture); 
 }
 
 
@@ -106,15 +120,17 @@ void classic_game()
         SDL_SetRenderDrawColor(classic_renderer, 32, 32, 32, 255);  // black background;
         SDL_RenderClear(classic_renderer); 
 
+        
         SDL_Rect chessboard_source_rect = {0, 0, 480, 480};
         SDL_RenderCopy(classic_renderer, chessboard, &chessboard_source_rect, &chessboard_dest_rect);
+        // display_chess_piece("/home/wolfye/chess_game/pieces/black_king.png", classic_renderer, 230, 470, 60, 60);
 
         SDL_SetRenderDrawColor(classic_renderer, 255, 255, 255, 255); 
         SDL_RenderFillRect(classic_renderer, &back_classic.rect); // Draw the button.
 
-        // int mouseX, mouseY;          //pentru a testa pozitia mouse-ului decomenteaza :/
-        // SDL_GetMouseState(&mouseX, &mouseY);
-        // printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
+        int mouseX, mouseY;          //pentru a testa pozitia mouse-ului decomenteaza :/
+        SDL_GetMouseState(&mouseX, &mouseY);
+        printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
 
         renderText(back_classic.label, back_classic.rect.x + 20, WINDOW_HEIGHT - 35, classic_renderer, classic_font);
 
