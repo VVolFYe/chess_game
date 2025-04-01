@@ -4,8 +4,6 @@
 #include "functions.h"
 #include "classic.h"
 
-// COMENTARIU TEST
-
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define BOARD_X 50
