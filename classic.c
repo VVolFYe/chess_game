@@ -178,6 +178,7 @@ void classic_game()
 
         SDL_RenderPresent(classic_renderer); // Update la screen.
     }
+    
 
     close_classic();
 }
