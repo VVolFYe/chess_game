@@ -101,24 +101,6 @@ void display_board(SDL_Renderer *renderer){
         }
     }
 }
-// void display_board(SDL_Renderer *renderer){     // BACKUP
-//     for (int i = 0; i < 8; i++) {
-//         for (int j = 0; j < 8; j++) {
-
-//             char piece = board[i][j];
-//             int square_size = BOARD_HEIGHT / 8; // momentan e 60 dar in caz ca mai schimb
-            
-//             int x = j * square_size + BOARD_X; 
-//             int y = i * square_size + BOARD_Y;
-
-//             if (piece != ' ') {
-//                 char path_image[100];
-//                 sprintf(path_image, "/home/wolfye/chess_game/pieces/%c.png", piece); // cream path-ul catre imaginea corespunzatoare pieesei selectate.
-//                 display_chess_piece(path_image, renderer, x, y, square_size, square_size);
-//             }
-//         }
-//     }
-// }
 
 bool init_classic(){
     classic_window = SDL_CreateWindow("Classic Chess", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
@@ -164,30 +146,6 @@ void close_classic(){
     SDL_DestroyRenderer(classic_renderer);
     SDL_DestroyWindow(classic_window);
 }
-
-
-// BACKUP
-// void display_chess_piece(const char *path, SDL_Renderer *renderer, int x, int y, int width, int height) {
-//     SDL_Texture *texture = NULL;
-//     SDL_Surface *surface = IMG_Load(path);
-
-//     if (surface == NULL) {
-//         fprintf(stderr, "Failed to load image: %s\n", IMG_GetError());
-//         return;
-//     }
-
-//     texture = SDL_CreateTextureFromSurface(renderer, surface);
-//     SDL_FreeSurface(surface);  // nu ne mai trebuie surface-ul
-
-//     if (texture == NULL) {
-//         fprintf(stderr, "Failed to create texture: %s\n", SDL_GetError());
-//         return;
-//     }
-
-//     SDL_Rect display_rect = {x, y, width, height}; //parametrizam ca sa putem folosi
-//     SDL_RenderCopy(renderer, texture, NULL, &display_rect); //punem imaginea
-//     SDL_DestroyTexture(texture); 
-// }
 
 
 void classic_game()
