@@ -192,9 +192,10 @@ void classic_game()
         SDL_SetRenderDrawColor(classic_renderer, 255, 255, 255, 255); 
         SDL_RenderFillRect(classic_renderer, &back_classic.rect); // Draw the button.
 
-        // int mouseX, mouseY;          //pentru a testa pozitia mouse-ului decomenteaza :/
-        // SDL_GetMouseState(&mouseX, &mouseY);
-        // printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
+        //test mouse-pos:
+        int mouseX, mouseY;          //pentru a testa pozitia mouse-ului decomenteaza :/
+        SDL_GetMouseState(&mouseX, &mouseY);
+        printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
 
         renderText(back_classic.label, back_classic.rect.x + 20, WINDOW_HEIGHT - 35, classic_renderer, classic_font);
 
