@@ -16,6 +16,7 @@ SDL_Window *classic_window = NULL;
 SDL_Renderer *classic_renderer = NULL;
 TTF_Font *classic_font = NULL;
 SDL_Texture *chessboard = NULL;
+int selected_piece = 0;
 
 SDL_Texture *piece_textures[128]; // salvam texturile de dinainte;
 
@@ -205,11 +206,11 @@ void classic_game()
         SDL_RenderFillRect(classic_renderer, &back_classic.rect); // Draw the button.
 
         //test mouse-pos:
-        int mouseX, mouseY;          //pentru a testa pozitia mouse-ului decomenteaza :/
-        SDL_GetMouseState(&mouseX, &mouseY);
-        printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
+        // int mouseX, mouseY;          //pentru a testa pozitia mouse-ului decomenteaza :/
+        // SDL_GetMouseState(&mouseX, &mouseY);
+        // printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
 
-        // move_piece(6,4,4,4);   // (pion e2-e4) --> TEST
+        // move_piece(6,4,4,4);   // (pion e2-e4) --> TEST --> success
 
         renderText(back_classic.label, back_classic.rect.x + 20, WINDOW_HEIGHT - 35, classic_renderer, classic_font);
 
