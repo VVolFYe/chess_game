@@ -102,6 +102,18 @@ void display_board(SDL_Renderer *renderer){
     }
 }
 
+void move_piece(int from_row, int from_col, int to_row, int to_col) {
+    //verificam daca exista piesa acolo. (nu este nevoie sa printam eroarea dar momentan ma ajuta)
+    if (board[from_row][from_col] == ' ') {
+        fprintf(stderr, "No piece at source position (%d, %d)\n", from_row, from_col);
+        return;
+    }
+
+    // mutam piesa
+    board[to_row][to_col] = board[from_row][from_col];
+    board[from_row][from_col] = ' ';
+}
+
 bool init_classic(){
     classic_window = SDL_CreateWindow("Classic Chess", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
     if (!classic_window) {
@@ -196,6 +208,8 @@ void classic_game()
         int mouseX, mouseY;          //pentru a testa pozitia mouse-ului decomenteaza :/
         SDL_GetMouseState(&mouseX, &mouseY);
         printf("Mouse x = %d, y = %d\n", mouseX, mouseY);
+
+        // move_piece(6,4,4,4);   // (pion e2-e4) --> TEST
 
         renderText(back_classic.label, back_classic.rect.x + 20, WINDOW_HEIGHT - 35, classic_renderer, classic_font);
 

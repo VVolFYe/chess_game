@@ -10,6 +10,7 @@ void close_classic();
 void classic_game();
 void display_chess_piece(const char, SDL_Renderer*, int, int, int , int);  //AM MODIFICAT AICI
 void display_board(SDL_Renderer*);
+void move_piece(int, int, int, int);
 
 
 #endif
