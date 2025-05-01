@@ -181,6 +181,8 @@ void classic_game()
     char dragged_piece = ' ';
     int drag_mouse_x = 0;
     int drag_mouse_y = 0;
+    char selected_piece = ' ';
+    bool piece_selected = false;
 
     while (!quit) {
         while (SDL_PollEvent(&e)) {
@@ -207,6 +209,13 @@ void classic_game()
                         board[row][col] = ' ';
                         drag_mouse_x = mouseX;
                         drag_mouse_y = mouseY;
+                        if (piece_selected == false) {   // asta facem pentru a muta piesele fara drag (doar click piesa si dupa click patratul pe care vrem sa mutam piesa respectiva) :)
+                            selected_piece = board[row][col];
+                            piece_selected = true;
+                        } else {
+                            // piece_selected = false;
+                            // selected_piece = ' ';
+                        }
                     }
                 }
             }
@@ -225,6 +234,22 @@ void classic_game()
                     }
                     dragging = 0;
                     dragged_piece = ' ';
+                }
+                else {
+                    if (piece_selected) {
+                        int square_size = BOARD_WIDTH / 8;
+                        int col = (mouseX - BOARD_X) / square_size;
+                        int row = (mouseY - BOARD_Y) / square_size;
+
+                        if (board[row][col] == ' ') {
+                            move_piece(drag_from_row, drag_from_col, row, col);
+                            piece_selected = false;
+                            selected_piece = ' ';
+                        } else {
+                            piece_selected = false;
+                            selected_piece = ' ';
+                        }
+                    }
                 }
             }
 
