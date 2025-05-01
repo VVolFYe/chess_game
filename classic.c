@@ -130,20 +130,26 @@ void display_board(SDL_Renderer *renderer){
 }
 
 void move_piece(int from_row, int from_col, int to_row, int to_col) {
+    bool valid = true;
+    
     //verificam daca exista piesa acolo. (nu este nevoie sa printam eroarea dar momentan ma ajuta)
     if (board[from_row][from_col] == ' ') {
         fprintf(stderr, "No piece at source position (%d, %d)\n", from_row, from_col);
         return;
     }
-    if (board[to_row][to_col] != ' ') {
-        fprintf(stderr, "Captured piece %c at (%d:%d)\n", board[to_row][to_col], to_row, to_col);
-        return;
+
+    if (check_same_color(board[from_row][from_col], board[to_row][to_col])) {
+        valid = false;
     }
 
-    // mutam piesa
+    if (valid){
     board[to_row][to_col] = board[from_row][from_col];
     board[from_row][from_col] = ' ';
+    } else {
+        return;
+    }
 }
+
 
 bool init_classic(){
     classic_window = SDL_CreateWindow("Classic Chess", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
@@ -276,11 +282,8 @@ void classic_game()
                         int row = (mouseY - BOARD_Y) / square_size;
 
                         if (row >= 0 && row < 8 && col >= 0 && col < 8) {
-                            if (board[row][col] == ' ' || !check_same_color(selected_piece, board[row][col])) {
-                                move_piece(selected_row, selected_col, row, col);
-                            }
+                            move_piece(selected_row, selected_col, row, col);
                         }
-
                         piece_selected = false;
                         selected_piece = ' ';
                         selected_row = -1;
