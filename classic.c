@@ -270,16 +270,17 @@ void classic_game()
                     dragged_piece = ' ';
                 }
                 else {
-                    if (piece_selected) {
+                    if (piece_selected) { // daca mutam piesa cu click
                         int square_size = BOARD_WIDTH / 8;
                         int col = (mouseX - BOARD_X) / square_size;
                         int row = (mouseY - BOARD_Y) / square_size;
 
-                        if ((board[row][col] == ' ') || (!check_same_color(selected_piece, board[row][col]))){
-                            move_piece(selected_row, selected_col, row, col);
-                        } else {
-                            board[drag_from_row][drag_from_col] = selected_piece;
+                        if (row >= 0 && row < 8 && col >= 0 && col < 8) {
+                            if (board[row][col] == ' ' || !check_same_color(selected_piece, board[row][col])) {
+                                move_piece(selected_row, selected_col, row, col);
+                            }
                         }
+
                         piece_selected = false;
                         selected_piece = ' ';
                         selected_row = -1;
