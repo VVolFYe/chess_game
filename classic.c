@@ -181,7 +181,7 @@ void classic_game()
     char dragged_piece = ' ';
     int drag_mouse_x = 0;
     int drag_mouse_y = 0;
-    char selected_piece = ' ';
+    //char selected_piece = ' ';
     bool piece_selected = false;
 
     while (!quit) {
