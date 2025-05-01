@@ -212,16 +212,13 @@ void classic_game()
                         if (piece_selected == false) {   // asta facem pentru a muta piesele fara drag (doar click piesa si dupa click patratul pe care vrem sa mutam piesa respectiva) :)
                             selected_piece = board[row][col];
                             piece_selected = true;
-                        } else {
-                            // piece_selected = false;
-                            // selected_piece = ' ';
                         }
                     }
                 }
             }
 
             if (e.type == SDL_MOUSEBUTTONUP) {
-                if (dragging) {
+                if (dragging) {  // daca tragem piesa (optiunea e pentru speed-chess mai importanta)
                     int square_size = BOARD_WIDTH / 8;
                     if (mouseX >= BOARD_X && mouseX < BOARD_X + BOARD_WIDTH &&
                         mouseY >= BOARD_Y && mouseY < BOARD_Y + BOARD_HEIGHT) {
@@ -236,7 +233,7 @@ void classic_game()
                     dragged_piece = ' ';
                 }
                 else {
-                    if (piece_selected) {
+                    if (piece_selected) {   // daca mutam piesa cu doua click-uri
                         int square_size = BOARD_WIDTH / 8;
                         int col = (mouseX - BOARD_X) / square_size;
                         int row = (mouseY - BOARD_Y) / square_size;
