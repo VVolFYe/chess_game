@@ -18,6 +18,9 @@ TTF_Font *classic_font = NULL;
 SDL_Texture *chessboard = NULL;
 int selected_piece = 0;
 
+int selected_row = -1; //pentru a da highlight la patratul selectat
+int selected_col = -1; 
+
 SDL_Texture *piece_textures[128]; // salvam texturile de dinainte;
 
 /*
@@ -62,6 +65,22 @@ void load_textures(SDL_Renderer *renderer) {
     }
 }
 
+bool check_same_color(char piece1, char piece2){
+    if (piece1 == ' '){
+        return false;
+    }
+    if (piece2 == ' '){
+        return false;
+    } 
+    if (isupper(piece1) && isupper(piece2)){ 
+        return true;
+    } 
+    if (islower(piece1) && islower(piece2)){ 
+        return true;
+    } 
+    return false;
+}
+
 void display_chess_piece(const char piece, SDL_Renderer *renderer, int x, int y, int width, int height) {
     int index = piece;
     SDL_Texture *texture = piece_textures[index];
@@ -90,6 +109,14 @@ void display_board(SDL_Renderer *renderer){
             int x = j * square_size + BOARD_X; 
             int y = i * square_size + BOARD_Y;
 
+            if (i == selected_row && j == selected_col) {
+                SDL_Rect highlight_rect = {x, y, square_size, square_size};
+                SDL_SetRenderDrawColor(renderer, 255, 255, 0, 128); // culoare galbena (transparent)
+                SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND); // ca sa le amestecam
+                SDL_RenderFillRect(renderer, &highlight_rect); // umplem patratul
+                SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE); // dam reset la renderer
+            }
+
             if (piece != ' ') {
 
                 display_chess_piece(board[i][j], renderer, x, y, square_size, square_size);
@@ -106,6 +133,10 @@ void move_piece(int from_row, int from_col, int to_row, int to_col) {
     //verificam daca exista piesa acolo. (nu este nevoie sa printam eroarea dar momentan ma ajuta)
     if (board[from_row][from_col] == ' ') {
         fprintf(stderr, "No piece at source position (%d, %d)\n", from_row, from_col);
+        return;
+    }
+    if (board[to_row][to_col] != ' ') {
+        fprintf(stderr, "Captured piece %c at (%d:%d)\n", board[to_row][to_col], to_row, to_col);
         return;
     }
 
@@ -159,7 +190,6 @@ void close_classic(){
     SDL_DestroyWindow(classic_window);
 }
 
-
 void classic_game()
 {
     if (!init_classic()){
@@ -210,7 +240,9 @@ void classic_game()
                         drag_mouse_x = mouseX;
                         drag_mouse_y = mouseY;
                         if (piece_selected == false) {   // asta facem pentru a muta piesele fara drag (doar click piesa si dupa click patratul pe care vrem sa mutam piesa respectiva) :)
-                            selected_piece = board[row][col];
+                            selected_piece = dragged_piece;
+                            selected_row = row;
+                            selected_col = col;
                             piece_selected = true;
                         }
                     }
@@ -218,14 +250,19 @@ void classic_game()
             }
 
             if (e.type == SDL_MOUSEBUTTONUP) {
-                if (dragging) {  // daca tragem piesa (optiunea e pentru speed-chess mai importanta)
+                if (dragging) { //daca tragem piesa
                     int square_size = BOARD_WIDTH / 8;
                     if (mouseX >= BOARD_X && mouseX < BOARD_X + BOARD_WIDTH &&
                         mouseY >= BOARD_Y && mouseY < BOARD_Y + BOARD_HEIGHT) {
                         
                         int to_col = (mouseX - BOARD_X) / square_size;
                         int to_row = (mouseY - BOARD_Y) / square_size;
-                        board[to_row][to_col] = dragged_piece;
+
+                        if (board[to_row][to_col] == ' ' || !check_same_color(dragged_piece, board[to_row][to_col])) {
+                            board[to_row][to_col] = dragged_piece;
+                        } else {
+                            board[drag_from_row][drag_from_col] = dragged_piece;
+                        }
                     } else {
                         board[drag_from_row][drag_from_col] = dragged_piece;
                     }
@@ -233,19 +270,20 @@ void classic_game()
                     dragged_piece = ' ';
                 }
                 else {
-                    if (piece_selected) {   // daca mutam piesa cu doua click-uri
+                    if (piece_selected) {
                         int square_size = BOARD_WIDTH / 8;
                         int col = (mouseX - BOARD_X) / square_size;
                         int row = (mouseY - BOARD_Y) / square_size;
 
-                        if (board[row][col] == ' ') {
-                            move_piece(drag_from_row, drag_from_col, row, col);
-                            piece_selected = false;
-                            selected_piece = ' ';
+                        if ((board[row][col] == ' ') || (!check_same_color(selected_piece, board[row][col]))){
+                            move_piece(selected_row, selected_col, row, col);
                         } else {
-                            piece_selected = false;
-                            selected_piece = ' ';
+                            board[drag_from_row][drag_from_col] = selected_piece;
                         }
+                        piece_selected = false;
+                        selected_piece = ' ';
+                        selected_row = -1;
+                        selected_col = -1;
                     }
                 }
             }
